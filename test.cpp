@@ -9,20 +9,10 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
-//do I add this?
 #include "mydatastore.h"
 
-using namespace std;
-struct ProdNameSorter {
-    bool operator()(Product* p1, Product* p2) {
-        return (p1->getName() < p2->getName());
-    }
-};
-void displayProducts(vector<Product*>& hits);
-
-int main(int argc, char* argv[])
-{
-    if(argc < 2) {
+int main(){
+	if(argc < 2) {
         cerr << "Please specify a database file" << endl;
         return 1;
     }
@@ -62,19 +52,15 @@ int main(int argc, char* argv[])
     cout << "  BUYCART username                   " << endl;
     cout << "  QUIT new_db_filename               " << endl;
     cout << "====================================" << endl;
+
     vector<Product*> hits;
     bool done = false;
     while(!done) {
-			
-			
-
         cout << "\nEnter command: " << endl;
         string line;
         getline(cin,line);
         stringstream ss(line);
         string cmd;
-
-				
         if((ss >> cmd)) {
             if( cmd == "AND") {
                 string term;
@@ -103,29 +89,27 @@ int main(int argc, char* argv[])
                     ds.dump(ofile);
                     ofile.close();
                 }
-								
                 done = true;
             }
-
 	    /* Add support for other commands here */
-            else if(cmd == "ADD"){
-                string user;
-                int index;
-                ss >> user;
-                ss >> index;
-                ds.addingtoCart(user, index);
+						else if(cmd == "ADD"){
+							string user;
+							int index;
+							ss >> user;
+							ss >> index;
+							ds.addingtoCart(user, index);
 
-            }
-            else if(cmd == "VIEWCART"){
-                string user;
-                ss >> user;
-                ds.viewingCart(user);
-            }
-            else if(cmd == "BUYCART"){
-                string user;
-                ss >> user;
-                ds.buyingCart(user);
-            }
+						}
+						else if(cmd == "VIEWCART"){
+							string user;
+							ss >> user;
+							ds.viewingCart(user);
+						}
+						else if(cmd == "BUYCART"){
+							string user;
+							ss >> user;
+							ds.buyingCart(user);
+						}
 
 
 
@@ -137,20 +121,6 @@ int main(int argc, char* argv[])
 
     }
     return 0;
-}
 
-void displayProducts(vector<Product*>& hits)
-{
-    int resultNo = 1;
-    if (hits.begin() == hits.end()) {
-    	cout << "No results found!" << endl;
-    	return;
-    }
-    std::sort(hits.begin(), hits.end(), ProdNameSorter());
-    for(vector<Product*>::iterator it = hits.begin(); it != hits.end(); ++it) {
-        cout << "Hit " << setw(3) << resultNo << endl;
-        cout << (*it)->displayString() << endl;
-        cout << endl;
-        resultNo++;
-    }
+
 }
