@@ -19,9 +19,9 @@ std::set<std::string> parseStringToWords(string rawWords)
     stringstream ss(rawWords);
     std::string word;
 
-    while(ss >> word){
+    while(ss >> word){ //put into string stream 
         std::string split;
-        for(size_t i = 0; i < word.size(); i++){
+        for(size_t i = 0; i < word.size(); i++){ //split at those characters
             if(word[i] == '.' || word[i] == ',' || word[i] == '!' || word[i] == '?' || word[i] == '-' || word[i] == '\''){
                 split += " ";
             }
@@ -39,7 +39,7 @@ std::set<std::string> parseStringToWords(string rawWords)
             }
         }
     }
-		return keywords; 
+		return keywords; //return the set of the words that were split and fit the 2 or greater requirement
 
 }
 

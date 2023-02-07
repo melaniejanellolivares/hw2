@@ -5,9 +5,9 @@
 
 Movie::Movie(const std::string category, const std::string name, double price, int qty, std::string genre, std::string rating)
 	:
-		Product(category, name, price, qty)
+		Product(category, name, price, qty) //calling parent constructor to init
 	{
-		genre_ = genre;
+		genre_ = genre; //set corressponding data members
 		rating_ = rating;
 
 	}
@@ -16,6 +16,7 @@ Movie::~Movie(){
 
 }
 
+//find all the keywords for the item and return a set containing them all
 std::set<std::string> Movie::keywords() const{
 
 	std::set<std::string> keywordset;

@@ -17,6 +17,7 @@
 
 	}
 
+	//adds product to the inventory
 	void MyDataStore::addProduct(Product* p){
 
 
@@ -49,6 +50,7 @@
 
 }
 
+//adds user to the "data base" while also assigning them carts
 void MyDataStore::addUser(User* u){
 	if(allUsers.find(u) == allUsers.end()) //product not fond
 	{
@@ -66,6 +68,7 @@ void MyDataStore::addUser(User* u){
 
 }
 
+//searches for the terms
 std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type){
 	std::vector<Product*> pReturn;
 	
@@ -82,7 +85,7 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 	}
 	else if(type == 0){
 		
-		//add an if statement to check if it is sempty bc it is itneresting with empy set
+		//add an if statement to check if it is empty bc it is intersecting with empy set
 
 
 		for(size_t i = 0; i < terms.size(); i++){
@@ -101,7 +104,7 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 		}
 
 	}
-
+	//turn into a vector to easily access
 	for(std::set<Product*>::iterator it = unionset.begin(); it != unionset.end(); ++it){
 		pReturn.insert(pReturn.begin(), *it);
 	}
@@ -113,6 +116,8 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 
 }
 
+
+//add an item to the cart based on the prevSearch vector also check for exceptions
 void MyDataStore::addingtoCart(std::string username,  size_t index){
 	if(index - 1 > prevSearch.size() || index < 0){
 		std::cout << "Invalid request" << std::endl;
@@ -134,6 +139,7 @@ void MyDataStore::addingtoCart(std::string username,  size_t index){
 
 }
 
+//view the user cart through using the usercartmap
 void MyDataStore::viewingCart(std::string username){
 
 	if(usercartmap.find(username) == usercartmap.end()){ //not found
@@ -142,7 +148,7 @@ void MyDataStore::viewingCart(std::string username){
 	}
 	else{
 		int cnt = 1;
-		
+		//iterating thru the cart printing out all the items
 		for (std::vector<Product*>::iterator it = usercartmap[username].begin(); it != usercartmap[username].end(); ++it){
 			std::cout << "Item " << cnt << std::endl;
 			std::cout << (*it)->displayString() << std::endl;
@@ -153,6 +159,7 @@ void MyDataStore::viewingCart(std::string username){
 
 }
 
+//buying the items in user cart while deducting the amount and subtracting the qty (first making sure user has enough money and there is stock)
 void MyDataStore::buyingCart(std::string username){
 	if(usercartmap.find(username) == usercartmap.end()){ //found
 		std::cout << "Invalid username" << std::endl;
@@ -177,7 +184,7 @@ void MyDataStore::buyingCart(std::string username){
 
 	usercartmap[username] = copyusercart;
 }
-
+//prints out the inventory and user data
 void MyDataStore::dump(std::ostream& ofile){
 
 

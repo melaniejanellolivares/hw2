@@ -6,21 +6,21 @@
 Book::~Book(){};
 Book::Book(const std::string category, const std::string name, double price, int qty, std::string isbn, std::string author)
 	:
-		Product(category, name, price, qty)
+		Product(category, name, price, qty) //call parent constructor to init those data members
 	{
-		isbn_ = isbn;
+		isbn_ = isbn; //set corressponding data members
 		author_ = author;
 
 
 	}
-
+//gets the keywords for the given item
 std::set<std::string> Book::keywords() const{
 
 	std::set<std::string> keywordset;
 	std::set<std::string> tempset = parseStringToWords(convToLower(author_));
 	
 	keywordset = parseStringToWords(convToLower(name_));
-	keywordset = setUnion( keywordset,  tempset );
+	keywordset = setUnion( keywordset,  tempset ); //combining all the keywords into one set
 	keywordset.insert(isbn_);
 
 

@@ -5,9 +5,9 @@
 
 Clothing::Clothing(const std::string category, const std::string name, double price, int qty, std::string size, std::string brand)
 	:
-		Product(category, name, price, qty)
+		Product(category, name, price, qty) //call parent constructor to init data members
 	{
-		size_ = size;
+		size_ = size; //init corressponding data members
 		brand_ = brand;
 
 	}
@@ -15,6 +15,7 @@ Clothing::~Clothing(){
 
 }
 
+//return a set of all the keywords of the item
 std::set<std::string> Clothing::keywords() const{
 
 	std::set<std::string> keywordset;

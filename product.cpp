@@ -3,12 +3,12 @@
 #include "product.h"
 
 using namespace std;
-
+//init the data members
 Product::Product(const std::string category, const std::string name, double price, int qty) :
     name_(name),
     price_(price),
     qty_(qty),
-    category_(category)
+    category_(category) 
 {
 
 }
